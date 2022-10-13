@@ -1,0 +1,48 @@
+{
+  "name": "scalingparrots-solidity",
+  "description": "Reusable Smart Contract library for Solidity",
+  "version": "1.0.0",
+  "files": [
+    "/contracts/**/*.sol",
+    "/build/contracts/*.json",
+    "!/contracts/mocks/**/*"
+  ],
+  "scripts": {
+    "compile": "npx hardhat compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scalingparrots/scalingparrots-contracts.git"
+  },
+  "keywords": [
+    "solidity",
+    "defi",
+    "ethereum",
+    "smart",
+    "contracts",
+    "security",
+    "zeppelin",
+    "uniswap",
+    "chainlink"
+  ],
+  "author": "scalingparrots",
+  "license": "MIT",
+  "devDependencies": {
+    "@openzeppelin/contracts": "^4.7.3",
+    "@uniswap/lib": "^4.0.1-alpha",
+    "@uniswap/v2-core": "^1.0.1",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0",
+    "@chainlink/contracts": "^0.5.1",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "eslint": "^8.25.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-promise": "^6.1.0",
+    "hardhat": "^2.12.0",
+    "prettier": "^2.7.1",
+    "solhint": "^3.3.7"
+  }
+}
