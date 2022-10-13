@@ -1,7 +1,7 @@
 {
   "name": "@scalingparrots/contracts",
   "description": "Reusable Smart Contract library for Solidity",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "files": [
     "/contracts/**/*.sol",
     "/build/contracts/*.json",
