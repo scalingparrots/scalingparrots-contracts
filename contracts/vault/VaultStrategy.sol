@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: ISC
 
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
@@ -24,7 +24,7 @@ contract StrategyVault is ERC20 {
     address public governance;
     address public controller;
 
-    constructor(string _vName, string _vSymbol, address _token, address _controller)
+    constructor(string memory _vName, string memory _vSymbol, address _token, address _controller)
     ERC20(
         string(abi.encodePacked(_vName, ERC20(_token).name())),
         string(abi.encodePacked(_vSymbol, ERC20(_token).symbol()))

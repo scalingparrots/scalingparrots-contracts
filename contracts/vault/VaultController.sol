@@ -11,7 +11,7 @@ import "../interface/IStrategy.sol";
 import "../interface/ISplitter.sol";
 import "../interface/IConverter.sol";
 
-contract Controller is AccessControl {
+contract VaultController is AccessControl {
     using SafeERC20 for IERC20;
     using Address for address;
     using SafeMath for uint256;
