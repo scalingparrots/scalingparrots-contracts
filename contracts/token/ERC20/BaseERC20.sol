@@ -6,8 +6,8 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract BaseERC20 is ERC20, AccessControl {
 
-    constructor(uint256 _initialQuantity) ERC20("name", "symbol") {
-        _mint(msg.sender, _initialQuantity * 10 ** decimals());
+    constructor(uint256 _amount) ERC20("name", "symbol") {
+        _mint(msg.sender, _amount * 10 ** decimals());
     }
 
 }
