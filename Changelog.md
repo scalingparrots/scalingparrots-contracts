@@ -1,4 +1,5 @@
 # Changelog
 
-## Unreleased
-updated contracts structure
+## 0.0.5
+
+* updated contracts structure
