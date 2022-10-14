@@ -9,11 +9,10 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract MasterChef is AccessControl, ReentrancyGuard {
-
     modifier onlyAdmin() {
         require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender));
         _;
-    } 
+    }
 
     using SafeMath for uint256;
     using SafeERC20 for IERC20;

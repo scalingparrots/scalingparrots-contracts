@@ -5,9 +5,7 @@ pragma experimental ABIEncoderV2;
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 contract BaseOraclePriceConsumer {
-
     AggregatorV3Interface internal _priceFeed;
-
 
     constructor(address _feeOracle) {
         _priceFeed = AggregatorV3Interface(_feeOracle);
@@ -16,14 +14,8 @@ contract BaseOraclePriceConsumer {
     /**
      * Returns the latest price
      */
-    function getLatestPrice() public view returns (int) {
-        (
-            , 
-            int price,
-            ,
-            ,
-            
-        ) = _priceFeed.latestRoundData();
+    function getLatestPrice() public view returns (int256) {
+        (, int256 price, , , ) = _priceFeed.latestRoundData();
         return price;
     }
 

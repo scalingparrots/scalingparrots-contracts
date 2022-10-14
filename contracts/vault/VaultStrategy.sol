@@ -24,11 +24,16 @@ contract StrategyVault is ERC20 {
     address public governance;
     address public controller;
 
-    constructor(string memory _vName, string memory _vSymbol, address _token, address _controller)
-    ERC20(
-        string(abi.encodePacked(_vName, ERC20(_token).name())),
-        string(abi.encodePacked(_vSymbol, ERC20(_token).symbol()))
+    constructor(
+        string memory _vName,
+        string memory _vSymbol,
+        address _token,
+        address _controller
     )
+        ERC20(
+            string(abi.encodePacked(_vName, ERC20(_token).name())),
+            string(abi.encodePacked(_vSymbol, ERC20(_token).symbol()))
+        )
     {
         token = IERC20(_token);
         governance = msg.sender;
@@ -36,7 +41,10 @@ contract StrategyVault is ERC20 {
     }
 
     function balance() public view returns (uint256) {
-        return token.balanceOf(address(this)).add(VaultController(controller).balanceOf(address(token)));
+        return
+            token.balanceOf(address(this)).add(
+                VaultController(controller).balanceOf(address(token))
+            );
     }
 
     function setMin(uint256 _min) external {

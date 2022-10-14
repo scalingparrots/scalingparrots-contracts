@@ -32,7 +32,7 @@ assert_current_branch() {
 }
 
 push_release_branch_and_tag() {
-  git push upstream "$(current_release_branch)" "$(current_version)"
+  git push origin "$(current_release_branch)" "$(current_version)"
 }
 
 publish() {
@@ -64,8 +64,8 @@ prompt_otp() {
 }
 
 environment_check() {
-  if ! git remote get-url upstream &> /dev/null; then
-    log "No 'upstream' remote found"
+  if ! git remote get-url origin &> /dev/null; then
+    log "No 'origin' remote found"
     exit 1
   fi
 
@@ -137,7 +137,7 @@ elif [[ "$*" == "final" ]]; then
 
   push_and_publish latest
 
-  log "Remember to merge the release branch into master and push upstream"
+  log "Remember to merge the release branch into master and push origin"
 
 else
   log "Unknown command: '$*'"

@@ -18,16 +18,20 @@ contract VeToken is ERC20, ERC20Burnable, AccessControl {
     }
 
     address public baseToken;
-    uint256 _precision = 10 ** 18;
+    uint256 _precision = 10**18;
     uint256 public maxLock;
     uint256 public minLock;
 
     mapping(address => Lock[]) private _tokenLock;
-    
+
     event Deposit(address, uint256);
     event Withdraw(address, uint256);
 
-    constructor(address _baseToken, uint256 _minDaysLock, uint256 _maxYearsLock) ERC20("voting escrow JDOE","veJDOE") {
+    constructor(
+        address _baseToken,
+        uint256 _minDaysLock,
+        uint256 _maxYearsLock
+    ) ERC20("voting escrow JDOE", "veJDOE") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         baseToken = _baseToken;
         maxLock = _maxYearsLock * 365 * 86400;
@@ -40,7 +44,7 @@ contract VeToken is ERC20, ERC20Burnable, AccessControl {
 
     function deposit(uint256 amount, uint256 locktime) public returns (bool) {
         require(locktime > block.timestamp, "locktime is not valid");
-        if(locktime >= block.timestamp.add(maxLock)) {
+        if (locktime >= block.timestamp.add(maxLock)) {
             locktime = block.timestamp.add(maxLock);
         }
         ERC20(baseToken).transferFrom(msg.sender, address(this), amount);
@@ -61,32 +65,45 @@ contract VeToken is ERC20, ERC20Burnable, AccessControl {
         _locks[lockId] = _locks[_locks.length - 1];
         _locks.pop();
         emit Withdraw(msg.sender, _lockedAmount);
-        
+
         return true;
     }
 
-    function lockedBalanceOf(address _addr) public view virtual returns (uint256) {
+    function lockedBalanceOf(address _addr)
+        public
+        view
+        virtual
+        returns (uint256)
+    {
         Lock[] memory locks = getLocksByAddr(_addr);
         uint256 _lockedBalance = 0;
-        for(uint256 i = 0; i < locks.length; i++) {
+        for (uint256 i = 0; i < locks.length; i++) {
             _lockedBalance = _lockedBalance.add(locks[i].lockAmount);
         }
         return _lockedBalance;
     }
 
-    function votingPowerOf(address _addr) public view virtual returns (uint256) {
+    function votingPowerOf(address _addr)
+        public
+        view
+        virtual
+        returns (uint256)
+    {
         Lock[] memory locks = getLocksByAddr(_addr);
         uint256 _votingBalance = 0;
-        for(uint256 i = 0; i < locks.length; i++) {
+        for (uint256 i = 0; i < locks.length; i++) {
             uint256 _unlockDate = locks[i].unlockDate;
-            if(block.timestamp >= _unlockDate) continue;
+            if (block.timestamp >= _unlockDate) continue;
             uint256 _lockAmount = locks[i].lockAmount;
             uint256 _diffNowEndLock = _unlockDate.sub(block.timestamp);
-            uint256 _multiplicator = _diffNowEndLock.mul(_precision).div(maxLock);
-            uint256 _remainingPower = _lockAmount.mul(_multiplicator).div(_precision); 
-            _votingBalance = _votingBalance.add(_remainingPower);       
+            uint256 _multiplicator = _diffNowEndLock.mul(_precision).div(
+                maxLock
+            );
+            uint256 _remainingPower = _lockAmount.mul(_multiplicator).div(
+                _precision
+            );
+            _votingBalance = _votingBalance.add(_remainingPower);
         }
         return _votingBalance;
     }
-
 }

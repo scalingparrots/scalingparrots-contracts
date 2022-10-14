@@ -16,10 +16,9 @@ contract UniswapV2Swapper is BaseSwapper {
         router = _router;
     }
 
-    function _swapExactTokensForTokens(
-        uint256 balance,
-        address[] memory path
-    ) internal {
+    function _swapExactTokensForTokens(uint256 balance, address[] memory path)
+        internal
+    {
         IUniswapV2Router02(router).swapExactTokensForTokens(
             balance,
             0,
@@ -29,10 +28,9 @@ contract UniswapV2Swapper is BaseSwapper {
         );
     }
 
-    function _swapExactETHForTokens(
-        uint256 balance,
-        address[] memory path
-    ) internal {
+    function _swapExactETHForTokens(uint256 balance, address[] memory path)
+        internal
+    {
         IUniswapV2Router02(router).swapExactETHForTokens{value: balance}(
             0,
             path,
@@ -41,10 +39,9 @@ contract UniswapV2Swapper is BaseSwapper {
         );
     }
 
-    function _swapExactTokensForETH(
-        uint256 balance,
-        address[] memory path
-    ) internal {
+    function _swapExactTokensForETH(uint256 balance, address[] memory path)
+        internal
+    {
         IUniswapV2Router02(router).swapExactTokensForETH(
             balance,
             0,
@@ -54,23 +51,19 @@ contract UniswapV2Swapper is BaseSwapper {
         );
     }
 
-    function _getPair(
-        address token0,
-        address token1
-    ) internal view returns (address) {
+    function _getPair(address token0, address token1)
+        internal
+        view
+        returns (address)
+    {
         address factory = IUniswapV2Router02(router).factory();
         return IUniswapV2Factory(factory).getPair(token0, token1);
     }
 
     /// @notice Add liquidity to uniswap for specified token pair, utilizing the maximum balance possible
-    function _addMaxLiquidity(
-        address token0,
-        address token1
-    ) internal {
-        uint256 _token0Balance =
-        IERC20(token0).balanceOf(address(this));
-        uint256 _token1Balance =
-        IERC20(token1).balanceOf(address(this));
+    function _addMaxLiquidity(address token0, address token1) internal {
+        uint256 _token0Balance = IERC20(token0).balanceOf(address(this));
+        uint256 _token1Balance = IERC20(token1).balanceOf(address(this));
 
         IUniswapV2Router02(router).addLiquidity(
             token0,
@@ -86,17 +79,11 @@ contract UniswapV2Swapper is BaseSwapper {
 
     function _addMaxLiquidityEth(address token0) internal {
         // FIXME
-        uint256 _token0Balance =
-        IERC20(token0).balanceOf(address(this));
+        uint256 _token0Balance = IERC20(token0).balanceOf(address(this));
         //uint256 _ethBalance = address(this).balance;
 
-        IUniswapV2Router02(router).addLiquidityETH{value: address(this).balance}(
-            token0,
-            _token0Balance,
-            0,
-            0,
-            address(this),
-            block.timestamp
-        );
+        IUniswapV2Router02(router).addLiquidityETH{
+            value: address(this).balance
+        }(token0, _token0Balance, 0, 0, address(this), block.timestamp);
     }
 }

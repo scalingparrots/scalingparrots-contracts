@@ -39,20 +39,25 @@ contract VaultController is AccessControl {
         address _strategist,
         address _rewards,
         address _splitter,
-        uint _split
+        uint256 _split
     ) {
         governance = _governance;
         strategist = _strategist;
         rewards = _rewards;
         splitter = _splitter;
-        split = _split;    
+        split = _split;
     }
 
     // ===== Modifiers =====
 
     /// @notice The Sett for a given token or any of the permissioned roles can call earn() to deposit accumulated deposit funds from the Sett to the active Strategy
     function _onlyApprovedForWant(address want) internal view {
-        require(msg.sender == vaults[want] || msg.sender == strategist || msg.sender == governance, "!authorized");
+        require(
+            msg.sender == vaults[want] ||
+                msg.sender == strategist ||
+                msg.sender == governance,
+            "!authorized"
+        );
     }
 
     function _onlyGovernance() internal view {
@@ -60,7 +65,10 @@ contract VaultController is AccessControl {
     }
 
     function _onlyGovernanceOrStrategist() internal view {
-        require(msg.sender == strategist || msg.sender == governance, "!authorized");
+        require(
+            msg.sender == strategist || msg.sender == governance,
+            "!authorized"
+        );
     }
 
     // ===== View Functions =====
@@ -77,7 +85,13 @@ contract VaultController is AccessControl {
     ) public view returns (uint256 expected) {
         uint256 _balance = IERC20(_token).balanceOf(_strategy);
         address _want = IStrategy(_strategy).want();
-        (expected, ) = ISplitter(splitter).getExpectedReturn(_token, _want, _balance, parts, 0);
+        (expected, ) = ISplitter(splitter).getExpectedReturn(
+            _token,
+            _want,
+            _balance,
+            parts,
+            0
+        );
     }
 
     // ===== Permissioned Actions: Governance Only =====
@@ -164,7 +178,9 @@ contract VaultController is AccessControl {
 
     /// @dev Transfer an amount of the specified token from the controller to the sender.
     /// @dev Token balance are never meant to exist in the controller, this is purely a safeguard.
-    function inCaseStrategyTokenGetStuck(address _strategy, address _token) public {
+    function inCaseStrategyTokenGetStuck(address _strategy, address _token)
+        public
+    {
         _onlyGovernanceOrStrategist();
         IStrategy(_strategy).withdrawOther(_token);
     }
