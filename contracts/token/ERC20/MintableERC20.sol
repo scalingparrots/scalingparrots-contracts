@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
+import "./BaseERC20.sol";
 
-contract BaseERC20 is ERC20, AccessControl {
+contract MintableERC20 is BaseERC20 {
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
@@ -13,7 +12,7 @@ contract BaseERC20 is ERC20, AccessControl {
         _;
     } 
 
-    constructor(uint256 _amount) ERC20("name", "symbol") {
+    constructor(string memory _name, string memory _symbol, uint256 _amount) BaseERC20(_name, _symbol, _amount) {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _mint(msg.sender, _amount * 10 ** decimals());
     }
