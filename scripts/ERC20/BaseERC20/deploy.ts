@@ -2,7 +2,7 @@ import { ethers } from "hardhat";
 
 async function main() {
   const BaseERC20 = await ethers.getContractFactory("BaseERC20");
-  const BaseERC20_contract = await BaseERC20.deploy("name", "symbol", "amount");
+  const BaseERC20_contract = await BaseERC20.deploy("MyToken", "TKN", ethers.utils.parseUnits("100000", 18));
 
   await BaseERC20_contract.deployed();
 
