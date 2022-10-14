@@ -1,7 +1,6 @@
 {
   "name": "@scalingparrots/contracts",
   "description": "Reusable Smart Contract library for Solidity",
-  "version": "0.0.5",
   "files": [
     "**/*.sol",
     "/build/contracts/*.json",
@@ -28,5 +27,6 @@
   "bugs": {
     "url": "https://github.com/ScalingParrots/scalingparrots-contracts/issues"
   },
-  "homepage": "https://scalingparrots.com/"
+  "homepage": "https://scalingparrots.com/",
+  "version": "0.0.5"
 }
