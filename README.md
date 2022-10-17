@@ -2,14 +2,22 @@
 
 ### Components
 
-The following libraries are included:
+The following contracts are provided:
 
 ```console
-"@openzeppelin/contracts": "^4.7.3",
-"@uniswap/lib": "^4.0.1-alpha",
-"@uniswap/v2-core": "^1.0.1",
-"@uniswap/v2-periphery": "^1.1.0-beta.0",
-"@chainlink/contracts": "^0.5.1",
+- token
+    - ERC20
+        - BaseERC20.sol
+        - MintableERC20.sol
+    - ERC721
+        - BaseERC721.sol
+- farming
+- LP vaults
+- strategies
+    - convex
+- vesting
+- oracles
+- voting
 ```
 
 ### Installation
@@ -34,3 +42,7 @@ contract MyToken is BaseERC20 {
 ## Security
 
 This project is maintained by [ScalingParrots](https://scalingparrots.com), and developed following our high standards for code quality and security. ScalingParrots Contracts is meant to provide tested and community-audited code, but please use common sense when doing anything that deals with real money! We take no responsibility for your implementation decisions and any security problems you might experience.
+
+## Audit
+
+Contracts are not audited, use at your own risk
